@@ -8,6 +8,6 @@ composer install
 
 ## TransferWise Configuration
 
-add below line into .env file with valid token
-TRANSFERWISE_TOKEN=<token>
+- add below line into .env file with valid token
+TRANSFERWISE_TOKEN=token-id
 
