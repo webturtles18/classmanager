@@ -58,15 +58,17 @@
                                     @endphp
                                     @if(!empty($levels))
                                         @foreach($levels as $level)
-                                            <input type="text" name="levels[]" value="{{ $level }}" class="form-control mb-1" required="" />
+                                            <div>
+                                                <input type="text" name="levels[]" value="{{ $level }}" class="form-control mb-1" required="" />
+                                                <a type="button" onclick="return removeLevel(this)"><i class="fa fa-fw fa-trash text-danger"></i></a>
+                                            </div>
                                         @endforeach
                                     @else
-                                    <input type="text" name="levels[]" class="form-control mb-1" required="" />
+                                    <div>
+                                        <input type="text" name="levels[]" class="form-control mb-1" required="" />
+                                        <a type="button" onclick="return removeLevel(this)"><i class="fa fa-fw fa-trash text-danger"></i></a>
+                                    </div>
                                     @endif
-<!--                                    <div class="row">
-                                        <div class="col-md-7 mb-1"><input type="text" name="levels[]" class="form-control" required="" /></div>
-                                        <div class="col-md-1"><a href="javascript:void(0)" class="" onclick="return removeLevel(1)"><i class="fa fa-fw fa-trash text-danger"></i></a></div>
-                                    </div>-->
                                 </div>
                                 <button type="button" class="btn btn-sm btn-primary" onclick="return addLevel()">Add Level</button>
                             </div>
@@ -95,14 +97,20 @@
 @section('scripts')
 <script type="text/javascript">
     function addLevel(){
-//        var ele = '<div class="mb-1"><input type="text" name="levels[]" class="form-control" required="" /><i class="fa fa-fw fa-trash text-danger"></i></div>';
-        var ele = '<input type="text" name="levels[]" class="form-control mb-1" required="" />';
+        
+        var ele = '<div><input type="text" name="levels[]" class="form-control mb-1" required="" /><a type="button" onclick="return removeLevel(this)"><i class="fa fa-fw fa-trash text-danger"></i></a></div>';
         var selector = "#levels-cantainer";
         
         $(selector).append(ele);
     }
-$(document).ready(function(){
     
-});
+    function removeLevel(ele){
+        var selector = "#levels-cantainer div";
+        
+        if($(selector).length > 1){
+            $(ele).parent('div').remove();
+        }
+    }
+    
 </script>
 @endsection

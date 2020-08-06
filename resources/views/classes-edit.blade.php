@@ -56,7 +56,10 @@
                                     $levels = $class->levels;
                                     @endphp
                                     @foreach($levels as $level)
-                                        <input type="text" name="levels[]" value="{{ $level['title'] }}" class="form-control mb-1" required="" />
+                                        <div>
+                                            <input type="text" name="levels[]" value="{{ $level['title'] }}" class="form-control mb-1" required="" />
+                                            <a type="button" onclick="return removeLevel(this)"><i class="fa fa-fw fa-trash text-danger"></i></a>
+                                        </div>
                                     @endforeach
                                 </div>
                                 <button type="button" class="btn btn-sm btn-primary" onclick="return addLevel()">Add Level</button>
@@ -86,10 +89,19 @@
 @section('scripts')
 <script type="text/javascript">
     function addLevel(){
-        var ele = '<input type="text" name="levels[]" class="form-control mb-1" required="" />';
+        
+        var ele = '<div><input type="text" name="levels[]" class="form-control mb-1" required="" /><a type="button" onclick="return removeLevel(this)"><i class="fa fa-fw fa-trash text-danger"></i></a></div>';
         var selector = "#levels-cantainer";
         
         $(selector).append(ele);
+    }
+    
+    function removeLevel(ele){
+        var selector = "#levels-cantainer div";
+        
+        if($(selector).length > 1){
+            $(ele).parent('div').remove();
+        }
     }
 </script>
 @endsection

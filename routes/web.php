@@ -31,4 +31,6 @@ Route::group(['middleware' => "auth"],function(){
     Route::get('/classes/delete/{id}', 'ClassController@destroy')->name('classes.delete');
     Route::get('/classes/download/{id}', 'ClassController@downloadDocument')->name('classes.download');
     
+    Route::get('/recipients','RecipientController@index')->name('recipients');
+    Route::post('/recipients','RecipientController@store');
 });

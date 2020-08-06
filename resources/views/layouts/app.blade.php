@@ -57,12 +57,16 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} 
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('recipients') }}">
+                                    Recipients
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <span class="nav-link">{{ Auth::user()->name }} | </span>
+                            </li>
+                            <li class="nav-item">
+                                <!--<span class="nav-link">{{ Auth::user()->name }} | </span>-->
                                 <a class="nav-link" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
