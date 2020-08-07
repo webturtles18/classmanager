@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Libraries\TransferWise;
 use Str;
 use App\Recipient;
+use Illuminate\Support\Facades\Validator;
 
 class Payout extends Command
 {
@@ -46,10 +47,22 @@ class Payout extends Command
         $recipient = Recipient::select('recipient_id')->first();
         $is_recipient = (!empty($recipient)) ? 1 : 0;
         if (!$is_recipient) {
-            $this->error('Something went wrong!');die;
+            $this->error("\n No recipient found! Please add recipient.");die;
         }
         
         $amount = $this->argument('amount');
+        
+        $validator = Validator::make(['amount' => $amount], ['amount' => ['numeric']]);
+        
+        if ($validator->fails()) {
+            $this->error("\n Failed to payout. See error messages below:");
+
+            foreach ($validator->errors()->all() as $error) {
+                $this->error($error);
+            }
+            die;
+        }
+        
         $amount = $amount ?? 50;
         $this->info("\nThis amount will be transfer: {$amount}");
         
